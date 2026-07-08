@@ -50,10 +50,10 @@ export default function ProductPage() {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: dict.nav.home, item: 'https://injaz-note.com/' },
-      { '@type': 'ListItem', position: 2, name: dict.nav.services, item: 'https://injaz-note.com/services' },
-      { '@type': 'ListItem', position: 3, name: cat.title, item: `https://injaz-note.com/services/${category}` },
-      { '@type': 'ListItem', position: 4, name: product?.name || productSlug, item: `https://injaz-note.com/services/${category}/${productSlug}` },
+      { '@type': 'ListItem', position: 1, name: dict.nav.home, item: 'https://enjaznote.com/' },
+      { '@type': 'ListItem', position: 2, name: dict.nav.services, item: 'https://enjaznote.com/services' },
+      { '@type': 'ListItem', position: 3, name: cat.title, item: `https://enjaznote.com/services/${category}` },
+      { '@type': 'ListItem', position: 4, name: product?.name || productSlug, item: `https://enjaznote.com/services/${category}/${productSlug}` },
     ],
   }
 
@@ -65,10 +65,10 @@ export default function ProductPage() {
     provider: {
       '@type': 'LocalBusiness',
       name: 'انجاز نوت',
-      url: 'https://injaz-note.com',
+      url: 'https://enjaznote.com',
     },
     areaServed: { '@type': 'City', name: 'الرياض' },
-    availableChannel: { '@type': 'ServiceChannel', serviceUrl: `https://injaz-note.com/services/${category}/${productSlug}` },
+    availableChannel: { '@type': 'ServiceChannel', serviceUrl: `https://enjaznote.com/services/${category}/${productSlug}` },
   }
 
   const fullMessage = lang === 'ar'

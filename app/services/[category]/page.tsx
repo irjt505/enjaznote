@@ -20,9 +20,9 @@ export default function CategoryPage() {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: dict.nav.home, item: 'https://injaz-note.com/' },
-      { '@type': 'ListItem', position: 2, name: dict.nav.services, item: 'https://injaz-note.com/services' },
-      { '@type': 'ListItem', position: 3, name: dict.services.categories[category as CategoryKey]?.title || category, item: `https://injaz-note.com/services/${category}` },
+      { '@type': 'ListItem', position: 1, name: dict.nav.home, item: 'https://enjaznote.com/' },
+      { '@type': 'ListItem', position: 2, name: dict.nav.services, item: 'https://enjaznote.com/services' },
+      { '@type': 'ListItem', position: 3, name: dict.services.categories[category as CategoryKey]?.title || category, item: `https://enjaznote.com/services/${category}` },
     ],
   }
 

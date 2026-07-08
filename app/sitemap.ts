@@ -10,7 +10,7 @@ const products: Record<string, string[]> = {
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = 'https://injaz-note.com'
+  const base = 'https://enjaznote.com'
 
   const staticPages = [
     { url: base, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 1 },

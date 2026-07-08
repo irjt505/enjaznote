@@ -25,7 +25,7 @@ export default function HomePage() {
             '@context': 'https://schema.org',
             '@type': 'LocalBusiness',
             name: 'انجاز نوت',
-            url: 'https://injaz-note.com',
+            url: 'https://enjaznote.com',
             aggregateRating: {
               '@type': 'AggregateRating',
               ratingValue: '5',

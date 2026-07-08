@@ -22,11 +22,11 @@ export const metadata: Metadata = {
   },
   description: 'انجاز نوت: وجهتك المتكاملة للخدمات المكتبية والطلابية والحكومية والرقمية في الرياض. طباعة، تصوير، أبشر، ترجمة، بحث علمي، تصميم جرافيك، خدمات حكومية.',
   keywords: 'انجاز نوت, مكتبة, خدمات عامة, طباعة, تصوير, خدمات حكومية, أبشر, خدمات طلابية, ترجمة, بحث علمي, تصميم, الرياض, السعودية, مركز خدمات, تجليد, مستلزمات مكتبية',
-  metadataBase: new URL('https://injaz-note.com'),
+  metadataBase: new URL('https://enjaznote.com'),
   openGraph: {
     title: 'انجاز نوت | مكتبة ومركز خدمات عامة - الرياض',
     description: 'وجهتك المتكاملة للخدمات المكتبية والطلابية والحكومية والرقمية في الرياض — طباعة، أبشر، ترجمة، تصميم، وكل ما تحتاجه في مكان واحد.',
-    url: 'https://injaz-note.com',
+    url: 'https://enjaznote.com',
     siteName: 'انجاز نوت',
     locale: 'ar_SA',
     type: 'website',
@@ -39,6 +39,16 @@ export const metadata: Metadata = {
     images: ['/og-image.png'],
   },
   robots: { index: true, follow: true },
+  icons: {
+    icon: { url: '/pp.png', type: 'image/png', sizes: '88x88' },
+    apple: '/pp.png',
+  },
+  alternates: {
+    canonical: 'https://enjaznote.com',
+    languages: {
+      'x-default': 'https://enjaznote.com',
+    },
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -49,11 +59,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${geistSans.variable} ${geistMono.variable} ${tajawal.variable} h-full antialiased`}
     >
       <head>
-        <link rel="icon" href="/pp.png" type="image/png" sizes="88x88" />
-        <link rel="apple-touch-icon" href="/pp.png" />
         <meta name="theme-color" content="#002248" />
-        <link rel="canonical" href="https://injaz-note.com" />
-        <link rel="alternate" hrefLang="x-default" href="https://injaz-note.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -61,11 +67,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               '@context': 'https://schema.org',
               '@type': 'WebSite',
               name: 'انجاز نوت',
-              url: 'https://injaz-note.com',
+              url: 'https://enjaznote.com',
               description: 'مكتبة ومركز خدمات عامة — طباعة، خدمات حكومية، خدمات طلابية، حلول رقمية',
               potentialAction: {
                 '@type': 'SearchAction',
-                target: { '@type': 'EntryPoint', urlTemplate: 'https://injaz-note.com/services?search={search_term_string}' },
+                target: { '@type': 'EntryPoint', urlTemplate: 'https://enjaznote.com/services?search={search_term_string}' },
                 'query-input': 'required name=search_term_string',
               },
             }),
@@ -78,8 +84,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               '@context': 'https://schema.org',
               '@type': 'Organization',
               name: 'انجاز نوت',
-              url: 'https://injaz-note.com',
-              logo: 'https://injaz-note.com/pp.png',
+              url: 'https://enjaznote.com',
+              logo: 'https://enjaznote.com/pp.png',
               contactPoint: {
                 '@type': 'ContactPoint',
                 telephone: '+966554764417',
@@ -102,10 +108,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               '@type': 'LocalBusiness',
               name: 'انجاز نوت',
               description: 'مكتبة ومركز خدمات عامة — طباعة، خدمات حكومية، خدمات طلابية، حلول رقمية',
-              url: 'https://injaz-note.com',
+              url: 'https://enjaznote.com',
               telephone: '+966554764417',
               email: 'enjaznote@gmail.com',
-              image: 'https://injaz-note.com/pp.png',
+              image: 'https://enjaznote.com/pp.png',
               priceRange: '$$',
               address: { '@type': 'PostalAddress', addressLocality: 'الرياض', addressCountry: 'SA' },
               openingHoursSpecification: [
