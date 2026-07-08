@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-primary: #002248;
+  --color-primary-light: #003366;
+  --color-primary-dark: #001530;
+  --color-accent: #c49027;
+  --color-accent-light: #D4A43E;
+  --color-accent-dark: #A6781E;
+  --color-text-light: #F5F5F5;
+  --color-text-muted: #94A3B8;
+  --color-text-dim: #64748B;
+  --color-bg-card: rgba(255, 255, 255, 0.05);
+  --color-border-subtle: rgba(255, 255, 255, 0.08);
+  --font-sans: var(--font-geist-sans), var(--font-arabic);
+  --font-mono: var(--font-geist-mono);
+}
+
+* { scrollbar-width: thin; scrollbar-color: var(--color-accent) transparent; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background: #002248;
+  color: #F5F5F5;
+}
+
+::selection { background: var(--color-accent); color: white; }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 20px rgba(196, 144, 39, 0.2); }
+  50% { box-shadow: 0 0 40px rgba(196, 144, 39, 0.4); }
+}
+@keyframes borderGlow {
+  0%, 100% { border-color: rgba(196, 144, 39, 0.2); }
+  50% { border-color: rgba(196, 144, 39, 0.6); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-fade-in-up { animation: fadeInUp 0.7s ease-out forwards; }
+.animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
+.animate-slide-in-right { animation: slideInRight 0.4s ease-out forwards; }
+.animate-float { animation: float 3s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulseGlow 2s ease-in-out infinite; }
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.stagger-1 { animation-delay: 0.1s; opacity: 0; animation-fill-mode: forwards; }
+.stagger-2 { animation-delay: 0.2s; opacity: 0; animation-fill-mode: forwards; }
+.stagger-3 { animation-delay: 0.3s; opacity: 0; animation-fill-mode: forwards; }
+.stagger-4 { animation-delay: 0.4s; opacity: 0; animation-fill-mode: forwards; }
+.stagger-5 { animation-delay: 0.5s; opacity: 0; animation-fill-mode: forwards; }
+.stagger-6 { animation-delay: 0.6s; opacity: 0; animation-fill-mode: forwards; }
+.stagger-7 { animation-delay: 0.7s; opacity: 0; animation-fill-mode: forwards; }
+.stagger-8 { animation-delay: 0.8s; opacity: 0; animation-fill-mode: forwards; }
+
+.scroll-reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease-out; }
+.scroll-reveal.revealed { opacity: 1; transform: translateY(0); }
+
+.card-gradient {
+  background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease;
+}
+.card-gradient:hover {
+  background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.03));
+  border-color: rgba(196, 144, 39, 0.3);
+}
+
+.product-card {
+  background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.product-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(196, 144, 39, 0.35);
+  box-shadow: 0 16px 48px rgba(196, 144, 39, 0.12);
+}
+
+.category-card {
+  background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+}
+.category-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #c49027, transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.category-card:hover::before { opacity: 1; }
+.category-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(196, 144, 39, 0.3);
+  box-shadow: 0 24px 64px rgba(196, 144, 39, 0.1);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(196, 144, 39, 0.3);
+}
+
+[dir="rtl"] .rtl-flip { transform: scaleX(-1); }
+
+.gold-glow { box-shadow: 0 0 30px rgba(196, 144, 39, 0.15); }
+
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(196, 144, 39, 0.3), transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

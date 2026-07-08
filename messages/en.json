@@ -1,0 +1,243 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "services": "Services",
+    "contact": "Contact Us",
+    "requestService": "Request Service"
+  },
+  "announcement": "🎉 20% OFF on all office services this month",
+  "hero": {
+    "title": "Injaz Note",
+    "subtitle": "Your Comprehensive Hub for Library & General Services",
+    "description": "From printing and academic support to government services and digital solutions — everything you need in one place with high quality and competitive prices.",
+    "cta": "Explore Our Services",
+    "cta2": "Contact Us",
+    "cta3": "Request Your Service Now",
+    "badge": "Trusted by 1000+ Clients"
+  },
+  "stats": {
+    "title": "Injaz Note by the Numbers",
+    "years": "Years of Experience",
+    "yearsValue": "10+",
+    "clients": "Happy Clients",
+    "clientsValue": "1000+",
+    "services": "Integrated Services",
+    "servicesValue": "50+",
+    "support": "Technical Support",
+    "supportValue": "247",
+    "hours": "Working Hours",
+    "hoursValue": " /week"
+  },
+  "about": {
+    "title": "About Injaz Note",
+    "subtitle": "Who We Are",
+    "description": "Injaz Note is a leading library and general services center, founded in 2015 to provide comprehensive high-quality solutions for individuals, students, and businesses across Saudi Arabia. We combine traditional library services with modern administrative and digital support to be your one-stop destination.",
+    "vision": { "title": "Our Vision", "text": "To be the most trusted and comprehensive service center in the Kingdom, empowering individuals and businesses to achieve their goals efficiently and easily." },
+    "mission": { "title": "Our Mission", "text": "To provide integrated, high-quality services that meet the diverse needs of our clients — from academic support to government transactions — with the highest standards of professionalism." },
+    "values": "Our Values",
+    "valuesList": [
+      "Quality & Excellence",
+      "Integrity & Transparency",
+      "Customer First",
+      "Innovation & Development",
+      "Professionalism",
+      "Speed of Delivery"
+    ],
+    "story": {
+      "title": "Our Story",
+      "paragraphs": [
+        "Injaz Note started in 2015 as a small office services center near the university district, aiming to bridge the gap in the local market between traditional office services and modern digital solutions.",
+        "Thanks to our clients' trust and evolving needs, we gradually expanded to become a comprehensive destination covering government, student, and digital services alongside office services.",
+        "Today, we are proud to be the first choice for hundreds of clients from individuals, students, and businesses, and we continuously strive to develop our services and keep up with the latest technologies."
+      ]
+    },
+    "team": {
+      "title": "Our Team",
+      "members": [
+        { "name": "Ahmed Al Saud", "role": "General Manager", "bio": "Founder of Injaz Note, 15 years of experience in service center management." },
+        { "name": "Sara Al Zahrani", "role": "Operations Manager", "bio": "Oversees daily operations and ensures the quality of services provided." },
+        { "name": "Mohammed Al Otaibi", "role": "Government Services Specialist", "bio": "Expert in government and e-services (Absher, Ministries, Documentation)." },
+        { "name": "Noura Al Qahtani", "role": "Student Advisor", "bio": "Helps students with university admissions, scholarships, and academic counseling." }
+      ]
+    },
+    "timeline": {
+      "title": "Our Journey",
+      "events": [
+        { "year": "2015", "title": "Foundation", "desc": "Opened the first Injaz Note center for office services." },
+        { "year": "2017", "title": "Expansion", "desc": "Added student and digital services." },
+        { "year": "2019", "title": "Government Services", "desc": "Launched the government services division in partnership with accredited agencies." },
+        { "year": "2021", "title": "Digital Transformation", "desc": "Launched the online platform for remote services." },
+        { "year": "2024", "title": "Leadership", "desc": "Over 1000 clients and 50 integrated services." }
+      ]
+    }
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Everything You Need in One Place — Integrated Solutions at Competitive Prices",
+    "requestBtn": "Request This Service",
+    "searchPlaceholder": "Search for a service...",
+    "noResults": "No results found",
+    "noResultsFor": "No results for",
+    "viewDetails": "View Details",
+    "orderNow": "Order Now",
+    "orderViaWhatsapp": "Order via WhatsApp",
+    "notes": "Additional notes (optional)",
+    "notesPlaceholder": "Write any additional notes...",
+    "otherServices": "Other services in this category",
+    "needAnotherService": "Need another service?",
+    "needAnotherServiceDesc": "Our services section has everything you need — browse other categories",
+    "allServices": "All Services",
+    "customCategory": "Custom Service",
+    "customService": {
+      "title": "Service not found?",
+      "desc": "Contact us, tell us what you need, and we will provide it with the best quality",
+      "button": "Request Custom Service",
+      "inputPlaceholder": "Type the service you need",
+      "send": "Send via WhatsApp",
+      "cancel": "Cancel"
+    },
+    "categories": {
+      "office": {
+        "title": "Office Services",
+        "desc": "Professional printing, copying, and office solutions",
+        "items": [
+          { "name": "Printing & Photocopying", "desc": "Color and B&W printing with high quality at competitive prices.", "slug": "printing" },
+          { "name": "Binding & Lamination", "desc": "Thermal and plastic binding for documents and books.", "slug": "binding" },
+          { "name": "Digital Scanning", "desc": "High-quality scanning for documents and photos.", "slug": "scanning" },
+                    { "name": "Office Supplies", "desc": "Sales of office supplies and stationery.", "slug": "supplies" }
+        ]
+      },
+      "student": {
+        "title": "Student Services",
+        "desc": "Complete academic support from research to university admissions",
+        "items": [
+          { "name": "Research & Reports", "desc": "Preparation and formatting of scientific research and academic reports.", "slug": "research" },
+          { "name": "Academic Translation", "desc": "Certified translation of documents and theses.", "slug": "translation" },
+          { "name": "Thesis Preparation", "desc": "Assistance in preparing master's and doctoral theses.", "slug": "thesis" },
+                    { "name": "Study Materials", "desc": "Providing summaries, books, and academic references.", "slug": "materials" }
+        ]
+      },
+      "digital": {
+        "title": "Digital Services",
+        "desc": "Integrated digital solutions to grow your business and brand",
+        "items": [
+          { "name": "Graphic Design", "desc": "Logo design, brochures, and visual identities.", "slug": "graphic-design" },
+          { "name": "Web Development", "desc": "Design and development of responsive websites.", "slug": "web-dev" },
+          { "name": "Social Media Management", "desc": "Social media account management and content creation.", "slug": "social-media" },
+          { "name": "Data Entry", "desc": "Accurate and professional data entry and organization.", "slug": "data-entry" },
+          { "name": "Digital Marketing", "desc": "Ad campaigns and digital marketing strategies.", "slug": "digital-marketing" }
+        ]
+      },
+      "government": {
+        "title": "Government Services",
+        "desc": "Complete your government transactions quickly and professionally",
+        "items": [
+          { "name": "Absher Services", "desc": "Create and update Absher accounts, complete all services.", "slug": "absher" },
+          { "name": "Job Applications", "desc": "Assistance with government and private sector job applications.", "slug": "job-applications" },
+          { "name": "University Admissions", "desc": "Apply to Saudi and international universities.", "slug": "admissions" },
+          { "name": "HR & Civil Affairs", "desc": "Human resources and civil service transactions.", "slug": "hr" },
+          { "name": "Document Legalization", "desc": "Document authentication from official authorities.", "slug": "legalization" },
+          { "name": "Ministry Services", "desc": "Complete transactions for various ministries.", "slug": "ministry" },
+          { "name": "Administrative Services", "desc": "Extract and renew official documents.", "slug": "admin" }
+        ]
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "items": [
+        { "q": "What are your working hours?", "a": "Open daily from 9 AM to 12 AM, except Friday from afternoon." },
+        { "q": "Do you offer remote services?", "a": "Yes, we provide services at the branch or remotely via WhatsApp." },
+        { "q": "How long does a transaction take?", "a": "We handle your transactions as quickly as possible with the highest quality." },
+        { "q": "Is there a service guarantee?", "a": "Yes, we guarantee the quality of all our services and provide full post-service support." }
+      ]
+    }
+  },
+  "testimonials": {
+    "title": "What Our Clients Say",
+    "subtitle": "Share your experience and help others choose",
+    "close": "Close",
+    "form": {
+      "title": "Add Your Review",
+      "namePlaceholder": "Your name",
+      "textPlaceholder": "Write about your experience...",
+      "submit": "Submit Review",
+      "success": "Thank you! Your review has been added",
+      "ratingLabel": "Rating"
+    },
+    "list": []
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "We're Here to Help — Get in Touch Any Way That Works for You",
+    "info": "Get In Touch",
+    "address": "Location",
+    "addressText": "King Fahd Road, Al Noor District, Riyadh, Saudi Arabia",
+    "addressNote": "Opposite King Saud University — Gate 3",
+    "phone": "Phone",
+    "phoneText": "0554764417",
+    "phoneAlt": "WhatsApp: 0554764417",
+    "email": "Email",
+    "emailText": "enjaznote@gmail.com",
+    "hours": "Working Hours",
+    "hoursText": "Saturday - Thursday: 8:00 AM - 10:00 PM",
+    "hoursNote": "Friday: Closed",
+    "openNow": "We're Open Now",
+    "closedNow": "We're Closed Now",
+    "schedule": {
+      "weekdays": "Open – Sat to Thu: 8 AM - 10 PM",
+      "weekend": "Closed Friday"
+    },
+    "mapUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d907.8770250449569!2d46.29353673043034!3d24.467845998636736!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f2f5c27d58833%3A0x633f70276d18258b!2z2YXZg9iq2KjYqSDYp9mG2KzYp9iyINmG2YjYqg!5e0!3m2!1sar!2sus!4v1783502690933!5m2!1sar!2sus",
+    "form": {
+      "title": "Send Us a Message",
+      "desc": "Fill out the form and we'll get back to you soon",
+      "name": "Your Name",
+      "email": "Your Email",
+      "phone": "Phone Number",
+      "serviceType": "Service Type",
+      "servicePlaceholder": "Select a service",
+      "message": "Your Message",
+      "submit": "Send Message",
+      "success": "Thank you! Your message has been received. We'll get back to you soon.",
+      "whatsapp": "WhatsApp Us",
+      "printing": "Printing & Copying",
+      "scanning": "Scanning",
+      "government": "Government Services",
+      "student": "Student Services",
+      "design": "Graphic Design",
+      "other": "Other Service"
+    },
+    "social": {
+      "title": "Follow Us",
+      "snapchat": "https://snapchat.com/add/enjaznote",
+      "tiktok": "https://tiktok.com/@enjaznote"
+    },
+    "followUs": "Follow Us On",
+    "cta": "Get in Touch",
+    "ctaDesc": "We're here to answer your questions and serve you best"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "tagline": "Your trusted partner for library and general services — Since 2015",
+    "quickLinks": "Quick Links",
+    "followUs": "Follow Us",
+    "subscribeTitle": "Newsletter",
+    "subscribePlaceholder": "Enter your email",
+    "subscribeBtn": "Subscribe",
+    "subscribeDesc": "Subscribe to get the latest offers and services"
+  },
+  "theme": {
+    "switchLang": "العربية"
+  },
+  "backToTop": "Back to Top",
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "The page you're looking for doesn't exist",
+    "action": "Back to Home"
+  },
+  "pageNotFound": "Page not found",
+  "backToServices": "Back to services",
+  "productNotFound": "Product not found",
+  "backToCategory": "Back to category"
+}
