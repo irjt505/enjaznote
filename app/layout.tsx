@@ -49,9 +49,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${geistSans.variable} ${geistMono.variable} ${tajawal.variable} h-full antialiased`}
     >
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="48x48" />
-        <link rel="icon" href="/icon.png" type="image/png" sizes="192x192" />
-        <link rel="apple-touch-icon" href="/apple-icon.png" />
+        <link rel="icon" href="/pp.png" type="image/png" sizes="88x88" />
+        <link rel="apple-touch-icon" href="/pp.png" />
         <meta name="theme-color" content="#002248" />
         <link rel="canonical" href="https://injaz-note.com" />
         <link rel="alternate" hrefLang="x-default" href="https://injaz-note.com" />
