@@ -3,7 +3,7 @@ import { getServerLanguage } from '@/lib/serverLanguage'
 import { whatsappUrl } from '@/lib/whatsapp'
 import CustomServiceRequest from '@/components/CustomServiceRequest'
 import WhatsAppStopPropagation from '@/components/WhatsAppStopPropagation'
-import { categoryIcons, validCategories } from '@/lib/constants'
+import { categoryIcons, itemIcons, validCategories } from '@/lib/constants'
 import type { CategoryKey } from '@/lib/constants'
 
 interface Props { params: Promise<{ category: string }> }
@@ -79,7 +79,7 @@ export default async function CategoryPage({ params }: Props) {
                   <div className="flex items-center gap-4 mb-4">
                     <div className="size-14 rounded-2xl bg-accent/10 flex items-center justify-center shrink-0 group-hover:bg-accent transition-all duration-400">
                       <svg aria-hidden="true" focusable="false" className="size-7 text-accent group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                        <path d={categoryIcons[category] || categoryIcons.office} />
+                        <path d={itemIcons[item.slug] || categoryIcons[category] || categoryIcons.office} />
                       </svg>
                     </div>
                     <div className="size-8 rounded-lg bg-accent/10 flex items-center justify-center shrink-0">

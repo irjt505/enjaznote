@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { getServerLanguage } from '@/lib/serverLanguage'
 import ProductOrderForm from '@/components/ProductOrderForm'
-import { categoryIcons, validCategories } from '@/lib/constants'
+import { categoryIcons, itemIcons, validCategories } from '@/lib/constants'
 import type { CategoryKey } from '@/lib/constants'
 
 interface Props { params: Promise<{ category: string; product: string }> }
@@ -83,7 +83,7 @@ export default async function ProductPage({ params }: Props) {
           <div className="card-gradient rounded-3xl p-10 md:p-14">
             <div className="size-20 rounded-2xl bg-accent/10 flex items-center justify-center mx-auto mb-6">
               <svg aria-hidden="true" focusable="false" className="size-10 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d={categoryIcons[category] || categoryIcons.office} />
+                <path d={itemIcons[productSlug] || categoryIcons[category] || categoryIcons.office} />
               </svg>
             </div>
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/10 border border-accent/30 text-accent-light text-xs font-medium mb-4">
@@ -127,7 +127,7 @@ export default async function ProductPage({ params }: Props) {
                   <div className="product-card rounded-xl p-5 text-center h-full">
                     <div className="size-12 rounded-xl bg-accent/10 flex items-center justify-center mx-auto mb-3">
                       <svg aria-hidden="true" focusable="false" className="size-6 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                        <path d={categoryIcons[category] || categoryIcons.office} />
+                        <path d={itemIcons[item.slug] || categoryIcons[category] || categoryIcons.office} />
                       </svg>
                     </div>
                     <h3 className="text-white font-semibold text-sm mb-1">{item.name}</h3>
