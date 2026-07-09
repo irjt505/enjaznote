@@ -11,7 +11,7 @@ export const itemIcons: Record<string, string> = {
   'menu-programming': 'M5 4h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z M7 9h10 M7 13h6 M7 17h4',
   'graphic-design': 'M17.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L17.5 3.5z M20 8l-4-4',
   'social-media': 'M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z',
-  'digital-marketing': 'M6 9h8v4H6V9z M14 9l4-3v10l-4-3',
+  'digital-marketing': 'M6 11h2v2H6v-2z M8 9l6-5v14l-6-5V9z',
   'data-entry': 'M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2 M9 12h6M9 16h6',
 }
 
