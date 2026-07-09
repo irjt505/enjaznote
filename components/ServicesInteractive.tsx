@@ -92,7 +92,7 @@ export default function ServicesInteractive() {
 
                         <div className="mt-auto pt-5 border-t border-white/10 w-full text-center">
                           <span className="inline-flex items-center gap-2 text-accent text-sm font-semibold group-hover:gap-3 transition-all">
-                            {items.length} {dict.services.noResults} &middot; {dict.hero.cta}
+                            {dict.hero.cta}
                             <svg aria-hidden="true" focusable="false" className="size-5 rtl-flip" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                               <path d="M5 12h14" />
                               <path d="m12 5 7 7-7 7" />
