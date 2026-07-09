@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
-import nodemailer from 'nodemailer'
+import { getResend, resendFrom } from '@/lib/resend'
 
-const smtpUser = process.env.SMTP_USER!
-const smtpPass = process.env.SMTP_PASS!
-const adminEmail = process.env.ADMIN_EMAIL
+const adminEmail = process.env.ADMIN_EMAIL!
 if (!adminEmail) throw new Error('ADMIN_EMAIL not set')
 
 function escapeHtml(text: string): string {
@@ -12,15 +10,6 @@ function escapeHtml(text: string): string {
 
 const rateLimit = new Map<string, number>()
 const RATE_WINDOW = 60000
-
-function createTransport() {
-  return nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false,
-    auth: { user: smtpUser, pass: smtpPass },
-  })
-}
 
 export async function POST(req: NextRequest) {
   const ip = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'unknown'
@@ -37,7 +26,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Invalid email' }, { status: 400 })
     }
 
-    // Insert into Supabase
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
     const res = await fetch(`${supabaseUrl}/rest/v1/subscribers`, {
@@ -54,10 +42,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: text }, { status: 500 })
     }
 
-    // Send notification email
-    const transport = createTransport()
-    await transport.sendMail({
-      from: `"انجاز نوت" <${smtpUser}>`,
+    await getResend().emails.send({
+      from: resendFrom,
       to: adminEmail,
       subject: '📬 اشتراك جديد في النشرة البريدية',
       html: `
