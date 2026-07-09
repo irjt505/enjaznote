@@ -41,10 +41,6 @@ export interface Dictionary {
       title: string
       paragraphs: string[]
     }
-    team: {
-      title: string
-      members: { name: string; role: string; bio: string }[]
-    }
     timeline: {
       title: string
       events: { year: string; title: string; desc: string }[]

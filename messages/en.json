@@ -52,15 +52,6 @@
         "Today, we are proud to be the first choice for hundreds of clients from individuals, students, and businesses, and we continuously strive to develop our services and keep up with the latest technologies."
       ]
     },
-    "team": {
-      "title": "Our Team",
-      "members": [
-        { "name": "Ahmed Al Saud", "role": "General Manager", "bio": "Founder of Injaz Note, 15 years of experience in service center management." },
-        { "name": "Sara Al Zahrani", "role": "Operations Manager", "bio": "Oversees daily operations and ensures the quality of services provided." },
-        { "name": "Mohammed Al Otaibi", "role": "Government Services Specialist", "bio": "Expert in government and e-services (Absher, Ministries, Documentation)." },
-        { "name": "Noura Al Qahtani", "role": "Student Advisor", "bio": "Helps students with university admissions, scholarships, and academic counseling." }
-      ]
-    },
     "timeline": {
       "title": "Our Journey",
       "events": [
