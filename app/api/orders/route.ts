@@ -1,43 +1,52 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
+import { isAdmin } from '@/lib/adminAuth'
 
-function getSupabase(req: NextRequest) {
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      global: {
-        headers: { Authorization: `Bearer ${req.cookies.get('sb-access-token')?.value ?? ''}` },
-      },
-      auth: { persistSession: false, autoRefreshToken: false },
-    },
-  )
-  return supabase
-}
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+
+const rateLimit = new Map<string, number>()
+const RATE_WINDOW = 60000
 
 export async function POST(req: NextRequest) {
+  const ip = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'unknown'
+  const now = Date.now()
+  const lastReq = rateLimit.get(ip)
+  if (lastReq && now - lastReq < RATE_WINDOW) {
+    return NextResponse.json({ error: 'محاولات كثيرة. حاول بعد دقيقة.' }, { status: 429 })
+  }
+  rateLimit.set(ip, now)
+
   const { service_name, category_name, notes, phone } = await req.json()
   if (!service_name || !category_name) {
     return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
   }
-  const supabase = getSupabase(req)
-  const { data, error } = await supabase
-    .from('orders')
-    .insert({ service_name, category_name, notes, phone })
-    .select()
-    .single()
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
-  return NextResponse.json(data, { status: 201 })
+  const res = await fetch(`${supabaseUrl}/rest/v1/orders`, {
+    method: 'POST',
+    headers: {
+      apikey: supabaseKey,
+      'Content-Type': 'application/json',
+      Prefer: 'return=representation',
+    },
+    body: JSON.stringify({ service_name, category_name, notes, phone }),
+  })
+  if (!res.ok) {
+    const err = await res.text()
+    return NextResponse.json({ error: err }, { status: 500 })
+  }
+  const data = await res.json()
+  return NextResponse.json(data[0], { status: 201 })
 }
 
 export async function GET(req: NextRequest) {
-  const supabase = getSupabase(req)
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  const { data, error } = await supabase
-    .from('orders')
-    .select('*')
-    .order('created_at', { ascending: false })
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  if (!(await isAdmin(req))) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+  const url = `${supabaseUrl}/rest/v1/orders?order=created_at.desc`
+  const res = await fetch(url, { headers: { apikey: supabaseKey } })
+  if (!res.ok) {
+    const err = await res.text()
+    return NextResponse.json({ error: err }, { status: 500 })
+  }
+  const data = await res.json()
   return NextResponse.json(data)
 }

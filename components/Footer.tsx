@@ -2,14 +2,18 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useState } from 'react'
 import Logo from './Logo'
 import SocialLinks from './SocialLinks'
 import { useLanguage } from '@/lib/LanguageContext'
-import { whatsappUrl } from '@/components/WhatsAppButton'
 
 export default function Footer() {
   const pathname = usePathname()
   const { dict, lang } = useLanguage()
+  const [subscribeEmail, setSubscribeEmail] = useState('')
+  const [subscribing, setSubscribing] = useState(false)
+  const [subscribeMsg, setSubscribeMsg] = useState<string | null>(null)
+  const [subscribeSuccess, setSubscribeSuccess] = useState(false)
 
   if (pathname.startsWith('/admin')) return null
 
@@ -86,29 +90,56 @@ export default function Footer() {
             <p className="text-text-muted text-sm mb-3 leading-relaxed">
               {dict.footer.subscribeDesc}
             </p>
-            <div className="flex gap-2">
-              <input
-                id="subscribe-email"
-                type="email"
-                placeholder={dict.footer.subscribePlaceholder}
-                className="flex-1 px-3 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm placeholder:text-text-muted/50 focus:outline-none focus:border-accent transition-colors"
-              />
-              <button
-                onClick={() => {
-                  const el = document.getElementById('subscribe-email') as HTMLInputElement
-                  const email = el?.value?.trim()
-                  if (!email) return
-                  const msg = lang === 'ar'
-                    ? `مرحباً، أرغب في الاشتراك في النشرة البريدية:\n\nالبريد الإلكتروني: ${email}`
-                    : `Hello, I would like to subscribe to the newsletter:\n\nEmail: ${email}`
-                  window.open(whatsappUrl(msg), '_blank')
-                  el.value = ''
-                }}
-                className="px-4 py-2.5 rounded-lg bg-accent text-white text-sm font-semibold hover:bg-accent-light transition-colors cursor-pointer shrink-0"
-              >
-                {dict.footer.subscribeBtn}
-              </button>
-            </div>
+              <div className="flex gap-2">
+                <label htmlFor="subscribe-email" className="sr-only">{dict.footer.subscribePlaceholder}</label>
+                <input
+                  id="subscribe-email"
+                  type="email"
+                  value={subscribeEmail}
+                  onChange={(e) => { setSubscribeEmail(e.target.value); if (subscribeMsg) setSubscribeMsg(null) }}
+                  placeholder={dict.footer.subscribePlaceholder}
+                  className="flex-1 px-3 py-2.5 rounded-lg bg-white/5 border border-white/10 text-white text-sm placeholder:text-text-muted/50 focus:outline-none focus:border-accent transition-colors"
+                />
+                <button
+                  disabled={subscribing}
+                  onClick={async () => {
+                    const email = subscribeEmail.trim()
+                    if (!email) { setSubscribeMsg(lang === 'ar' ? 'يرجى إدخال البريد الإلكتروني' : 'Please enter your email'); setSubscribeSuccess(false); return }
+                    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setSubscribeMsg(lang === 'ar' ? 'البريد الإلكتروني غير صحيح' : 'Invalid email address'); setSubscribeSuccess(false); return }
+                    setSubscribing(true)
+                    setSubscribeMsg(null)
+                    try {
+                      const res = await fetch('/api/subscribe', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email }),
+                      })
+                      if (res.ok) {
+                        setSubscribeMsg(dict.footer.subscribeSuccess)
+                        setSubscribeSuccess(true)
+                        setSubscribeEmail('')
+                      } else {
+                        const data = await res.json()
+                        setSubscribeMsg(data.error || (lang === 'ar' ? 'حدث خطأ، حاول مرة أخرى' : 'Something went wrong'))
+                        setSubscribeSuccess(false)
+                      }
+                    } catch {
+                      setSubscribeMsg(lang === 'ar' ? 'حدث خطأ في الاتصال' : 'Network error')
+                      setSubscribeSuccess(false)
+                    } finally {
+                      setSubscribing(false)
+                    }
+                  }}
+                  className="px-4 py-2.5 rounded-lg bg-accent text-white text-sm font-semibold hover:bg-accent-light transition-colors cursor-pointer shrink-0 disabled:opacity-50"
+                >
+                  {dict.footer.subscribeBtn}
+                </button>
+              </div>
+              {subscribeMsg && (
+                <p className={`text-xs mt-2 ${subscribeSuccess ? 'text-green-400' : 'text-red-400'}`}>
+                  {subscribeMsg}
+                </p>
+              )}
           </div>
         </div>
 

@@ -15,17 +15,15 @@ function AnimatedNumber({ value, duration = 1000, suffix = '' }: AnimatedNumberP
 
   useEffect(() => {
     prefersReduced.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (prefersReduced.current) { setDisplay(value); return }
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (value === 0) { setDisplay(0); return }
+    if (prefersReduced.current || value === 0) return
 
     const steps = 30
     const increment = value / steps
     let current = 0
     const timer = setInterval(() => {
       current += increment
-      if (current >= value) { setDisplay(value); clearInterval(timer) }
-      else setDisplay(Math.floor(current))
+      setDisplay(current >= value ? value : Math.floor(current))
+      if (current >= value) clearInterval(timer)
     }, duration / steps)
     return () => clearInterval(timer)
   }, [value, duration])

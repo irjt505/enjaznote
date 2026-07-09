@@ -22,12 +22,12 @@ export async function POST(req: NextRequest) {
   if (!email || !password) {
     return NextResponse.json({ error: 'Missing credentials' }, { status: 400 })
   }
-  const { data, error } = await supabase.auth.signInWithPassword({ email, password })
+  const { error } = await supabase.auth.signInWithPassword({ email, password })
   if (error) {
     const message = error.message.includes('Email not confirmed')
-      ? 'البريد الإلكتروني لم يتم تأكيده. تأكد من بريدك الوارد أو عطّل التأكيد من Supabase Dashboard > Auth > Settings > Confirm email'
+      ? 'البريد الإلكتروني لم يتم تأكيده. تحقق من بريدك الوارد'
       : 'بيانات الدخول غير صحيحة'
     return NextResponse.json({ error: message }, { status: 401 })
   }
-  return NextResponse.json({ user: data.user })
+  return NextResponse.json({ success: true })
 }

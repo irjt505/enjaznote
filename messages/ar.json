@@ -226,7 +226,8 @@
     "subscribeTitle": "النشرة البريدية",
     "subscribePlaceholder": "أدخل بريدك الإلكتروني",
     "subscribeBtn": "اشترك",
-    "subscribeDesc": "اشترك لتصلك أحدث العروض والخدمات"
+    "subscribeDesc": "اشترك لتصلك أحدث العروض والخدمات",
+    "subscribeSuccess": "تم الاشتراك بنجاح ✅"
   },
   "theme": {
     "switchLang": "English"

@@ -225,7 +225,8 @@
     "subscribeTitle": "Newsletter",
     "subscribePlaceholder": "Enter your email",
     "subscribeBtn": "Subscribe",
-    "subscribeDesc": "Subscribe to get the latest offers and services"
+    "subscribeDesc": "Subscribe to get the latest offers and services",
+    "subscribeSuccess": "Subscribed successfully ✅"
   },
   "theme": {
     "switchLang": "العربية"

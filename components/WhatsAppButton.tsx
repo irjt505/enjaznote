@@ -2,14 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 import { useLanguage } from '@/lib/LanguageContext'
-
-const PHONE = '966554764417'
-
-export { PHONE }
-
-export function whatsappUrl(message: string) {
-  return `https://wa.me/${PHONE}?text=${encodeURIComponent(message)}`
-}
+import { whatsappUrl } from '@/lib/whatsapp'
 
 export default function WhatsAppButton() {
   const pathname = usePathname()

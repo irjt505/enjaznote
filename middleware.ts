@@ -1,35 +1,45 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { createClient } from '@supabase/supabase-js'
+import { createServerClient } from '@supabase/ssr'
 
-export async function middleware(request: NextRequest) {
+export default async function middleware(request: NextRequest) {
+  let response = NextResponse.next()
+
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll()
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
+          response = NextResponse.next({ request: { headers: request.headers } })
+          cookiesToSet.forEach(({ name, value, options }) =>
+            response.cookies.set(name, value, options),
+          )
+        },
+      },
+    },
+  )
+
   const { pathname } = request.nextUrl
 
   if (pathname.startsWith('/admin') && !pathname.startsWith('/admin/login')) {
-    const token = request.cookies.get('sb-access-token')?.value
-    if (!token) {
+    const adminEmail = process.env.ADMIN_EMAIL
+    if (!adminEmail) {
       return NextResponse.redirect(new URL('/admin/login', request.url))
     }
     try {
-      const supabase = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-        { global: { headers: { Authorization: `Bearer ${token}` } } },
-      )
-      const { data: { user } } = await supabase.auth.getUser(token)
-      if (!user || user.email !== 'enjaznote@gmail.com') {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user || user.email !== adminEmail) {
         return NextResponse.redirect(new URL('/admin/login', request.url))
       }
     } catch {
       return NextResponse.redirect(new URL('/admin/login', request.url))
     }
   }
-
-  const response = NextResponse.next()
-  response.headers.set('X-Content-Type-Options', 'nosniff')
-  response.headers.set('X-Frame-Options', 'DENY')
-  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
-  response.headers.set('X-XSS-Protection', '1; mode=block')
 
   return response
 }

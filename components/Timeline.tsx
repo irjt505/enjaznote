@@ -15,7 +15,7 @@ export default function Timeline() {
           {events.map((event, i) => {
             const isLeft = i % 2 === 0
             return (
-              <div key={i} className="relative flex items-start gap-6 md:gap-0 mb-12 last:mb-0 md:odd:flex-row-reverse">
+              <div key={`${event.year}-${i}`} className="relative flex items-start gap-6 md:gap-0 mb-12 last:mb-0 md:odd:flex-row-reverse">
                 <div className="hidden md:block md:w-1/2 md:px-8">
                   <div className={`${isLeft ? 'md:text-right' : 'md:text-left'}`}>
                     <h3 className="text-xl font-bold text-white mb-1">{event.title}</h3>

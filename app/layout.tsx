@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono, Tajawal } from 'next/font/google'
 import '@/app/globals.css'
 import { LanguageProvider } from '@/lib/LanguageContext'
+import { getServerLanguage } from '@/lib/serverLanguage'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import WhatsAppButton from '@/components/WhatsAppButton'
@@ -47,15 +48,17 @@ export const metadata: Metadata = {
     canonical: 'https://enjaznote.com',
     languages: {
       'x-default': 'https://enjaznote.com',
+      ar: 'https://enjaznote.com',
     },
   },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const { lang, dir } = await getServerLanguage()
   return (
     <html
-      lang="ar"
-      dir="rtl"
+      lang={lang}
+      dir={dir}
       className={`${geistSans.variable} ${geistMono.variable} ${tajawal.variable} h-full antialiased`}
     >
       <head>
@@ -128,7 +131,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <span aria-hidden="true" className="mx-1 opacity-50">|</span>
           <span lang="en">Skip to main content</span>
         </a>
-        <LanguageProvider>
+        <LanguageProvider initialLang={lang}>
           <Navbar />
           <main id="main-content" className="flex-1 pt-16 md:pt-20">{children}</main>
           <Footer />

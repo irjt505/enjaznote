@@ -146,6 +146,12 @@ body {
   background: linear-gradient(90deg, transparent, rgba(196, 144, 39, 0.3), transparent);
 }
 
+*:focus-visible {
+  outline: 2px solid #c49027;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

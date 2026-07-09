@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react'
 import { useLanguage } from '@/lib/LanguageContext'
-import { whatsappUrl } from '@/components/WhatsAppButton'
+import { whatsappUrl } from '@/lib/whatsapp'
 import ScrollReveal from './ScrollReveal'
 
 interface Props {
@@ -59,7 +59,9 @@ export default function CustomServiceRequest({ title, desc, btnLabel }: Props) {
 
             <div id="custom-service-panel" className={`overflow-hidden transition-all duration-500 ease-in-out ${open ? 'max-h-40 opacity-100 mb-6' : 'max-h-0 opacity-0'}`}>
               <div className="flex flex-col gap-3">
+                <label htmlFor="custom-service-input" className="sr-only">{dict.services.customService.inputPlaceholder}</label>
                 <input
+                  id="custom-service-input"
                   ref={inputRef}
                   type="text"
                   value={serviceName}

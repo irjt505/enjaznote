@@ -15,7 +15,7 @@ export default function Story() {
         </ScrollReveal>
         <div className="grid grid-cols-1 gap-6">
           {paragraphs.map((p, i) => (
-            <ScrollReveal key={i}>
+            <ScrollReveal key={`${p.slice(0, 20)}-${i}`}>
               <div className="card-gradient rounded-2xl p-8 text-center">
                 <p className="text-text-muted leading-relaxed text-lg">{p}</p>
               </div>

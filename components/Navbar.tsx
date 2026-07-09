@@ -1,23 +1,28 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { useState, useEffect } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
+import { useState, useEffect, startTransition } from 'react'
 import Logo from './Logo'
 import { useLanguage } from '@/lib/LanguageContext'
 
 export default function Navbar() {
   const pathname = usePathname()
+  const router = useRouter()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [showAnnouncement, setShowAnnouncement] = useState(true)
   const [announceClosing, setAnnounceClosing] = useState(false)
-  const { dict, toggleLang } = useLanguage()
+  const { dict, toggleLang, lang } = useLanguage()
   const isAdmin = pathname.startsWith('/admin')
 
   useEffect(() => {
-    const stored = localStorage.getItem('announcementClosed')
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (stored === 'true') setShowAnnouncement(false)
+    startTransition(() => {
+      try {
+        if (localStorage.getItem('announcementClosed') === 'true') {
+          setShowAnnouncement(false)
+        }
+      } catch { /* localStorage not available */ }
+    })
   }, [])
 
   useEffect(() => {
@@ -54,7 +59,7 @@ export default function Navbar() {
             <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
           </svg>
           <span className="truncate">{dict.announcement}</span>
-          <button onClick={dismissAnnouncement} className="shrink-0 hover:opacity-70 cursor-pointer p-1" aria-label="Close">
+          <button onClick={dismissAnnouncement} className="shrink-0 hover:opacity-70 cursor-pointer p-1" aria-label={lang === 'ar' ? 'إغلاق' : 'Close'}>
             <svg aria-hidden="true" focusable="false" className="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <line x1="18" y1="6" x2="6" y2="18" />
               <line x1="6" y1="6" x2="18" y2="18" />
@@ -91,7 +96,7 @@ export default function Navbar() {
                 {dict.nav.requestService}
               </Link>
               <button
-                onClick={toggleLang}
+                onClick={() => { toggleLang(); router.refresh() }}
                 className="ms-1 px-3 py-2 rounded-lg text-xs font-medium border border-white/20 text-text-light hover:bg-white/10 transition-colors cursor-pointer"
               >
                 {dict.theme.switchLang}
@@ -100,6 +105,8 @@ export default function Navbar() {
 
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-menu"
               className="md:hidden p-2 rounded-lg text-text-light hover:bg-white/5 transition-colors"
               aria-label="Toggle menu"
             >
@@ -122,7 +129,7 @@ export default function Navbar() {
         </div>
 
         {mobileOpen && (
-          <div className="md:hidden border-t border-white/10 bg-primary/98 backdrop-blur-md">
+          <div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu" className="md:hidden border-t border-white/10 bg-primary/98 backdrop-blur-md">
             <div className="px-4 py-3 space-y-1">
               {links.map((link) => (
                 <Link
@@ -146,7 +153,7 @@ export default function Navbar() {
                 {dict.nav.requestService}
               </Link>
               <button
-                onClick={() => { toggleLang(); setMobileOpen(false) }}
+                onClick={() => { toggleLang(); setMobileOpen(false); router.refresh() }}
                 className="block w-full px-4 py-3 rounded-lg text-sm font-medium border border-white/20 text-text-light hover:bg-white/10 transition-colors text-center mt-1 cursor-pointer"
               >
                 {dict.theme.switchLang}

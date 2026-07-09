@@ -15,11 +15,13 @@ export default function FAQ() {
         <div className="space-y-3">
           {items.map((item, i) => (
             <div
-              key={i}
+              key={`${item.q}-${i}`}
               className="card-gradient rounded-xl border border-white/10 overflow-hidden transition-shadow"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                aria-expanded={openIndex === i}
+                aria-controls={`faq-answer-${i}`}
                 className="w-full flex items-center justify-between p-5 text-left cursor-pointer"
               >
                 <span className="font-semibold text-white">{item.q}</span>
@@ -31,11 +33,15 @@ export default function FAQ() {
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
+                  aria-hidden="true"
                 >
                   <polyline points="6 9 12 15 18 9" />
                 </svg>
               </button>
               <div
+                id={`faq-answer-${i}`}
+                role="region"
+                aria-labelledby={`faq-button-${i}`}
                 className={`overflow-hidden transition-all duration-300 ${
                   openIndex === i ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'
                 }`}

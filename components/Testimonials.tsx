@@ -72,7 +72,7 @@ export default function Testimonials() {
           try { const local = JSON.parse(stored); if (local.length > 0) setReviews(local) } catch {}
         }
       })
-  }, [dict])
+  }, [lang])
 
   const saveReviews = useCallback((r: Review[]) => {
     setReviews(r)
@@ -92,6 +92,7 @@ export default function Testimonials() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    if (submitted) return
     if (!name.trim() || !text.trim()) return
     const newReview: Review = {
       name: name.trim(),
@@ -196,7 +197,9 @@ export default function Testimonials() {
                   <StarRating value={stars} onChange={setStars} />
                 </div>
 
+                <label htmlFor="review-name" className="sr-only">{dict.testimonials.form.namePlaceholder}</label>
                 <input
+                  id="review-name"
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -205,7 +208,9 @@ export default function Testimonials() {
                   className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 focus:border-accent focus:ring-2 focus:ring-accent/20 outline-none transition-all text-white placeholder:text-text-dim/50 text-center"
                 />
 
+                <label htmlFor="review-text" className="sr-only">{dict.testimonials.form.textPlaceholder}</label>
                 <textarea
+                  id="review-text"
                   value={text}
                   onChange={(e) => setText(e.target.value)}
                   required
@@ -216,7 +221,8 @@ export default function Testimonials() {
 
                 <button
                   type="submit"
-                  className="w-full px-6 py-4 rounded-xl bg-accent text-white font-bold text-lg hover:bg-accent-light transition-all cursor-pointer inline-flex items-center justify-center gap-2"
+                  disabled={submitted}
+                  className="w-full px-6 py-4 rounded-xl bg-accent text-white font-bold text-lg hover:bg-accent-light transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed inline-flex items-center justify-center gap-2"
                 >
                   <svg aria-hidden="true" focusable="false" className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />

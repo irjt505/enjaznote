@@ -18,11 +18,11 @@ export default function Team() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {members.map((member, i) => (
             <div
-              key={i}
+              key={`${member.name}-${i}`}
               className="glass-card rounded-2xl p-6 text-center group hover:border-accent/40 transition-all"
             >
               <div className="size-20 rounded-full bg-accent/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-accent/20 transition-colors">
-                <svg className="size-10 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <svg aria-hidden="true" focusable="false" className="size-10 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                   <path d={teamIcons[i % 2]} strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>

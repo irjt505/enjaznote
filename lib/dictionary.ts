@@ -156,6 +156,7 @@ export interface Dictionary {
     subscribePlaceholder: string
     subscribeBtn: string
     subscribeDesc: string
+    subscribeSuccess: string
   }
   theme: {
     switchLang: string
