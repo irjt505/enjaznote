@@ -8,10 +8,10 @@ export const categoryIcons: Record<string, string> = {
 export const itemIcons: Record<string, string> = {
   'web-dev': 'M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z',
   ecommerce: 'M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0',
-  'menu-programming': 'M4 6h16M4 12h16M4 18h16 M20 7l-3 3M14 7l3 3',
-  'graphic-design': 'M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z M15 14l3 4',
-  'social-media': 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8z M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75',
-  'digital-marketing': 'M22 12h-4l-3 9L9 3l-3 9H2',
+  'menu-programming': 'M8 2v8a3 3 0 0 0 6 0V2 M16 2v18l4-4V2 M6 14h12a6 6 0 0 1-12 0z',
+  'graphic-design': 'M17.5 6.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L17.5 6.5z M10 18l8-8 M15 5l4 4',
+  'social-media': 'M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z',
+  'digital-marketing': 'M15 9l4-4v14l-4-4M10 5H6a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h4l4 4V1l-4 4z',
   'data-entry': 'M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2 M9 12h6M9 16h6M9 8h1',
 }
 
