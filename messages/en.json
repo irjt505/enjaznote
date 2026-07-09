@@ -122,13 +122,13 @@
         "title": "Digital Services",
         "desc": "Integrated digital solutions to grow your business and brand",
         "items": [
-          { "name": "Web Development", "desc": "Develop anything you need — e-commerce, digital menus, custom systems.", "slug": "web-dev" },
-          { "name": "E-commerce Stores", "desc": "Build online stores via Salla or Zid platforms.", "slug": "ecommerce" },
-          { "name": "Menu Programming", "desc": "Create digital menus for restaurants and cafes.", "slug": "menu-programming" },
-          { "name": "Graphic Design", "desc": "Logo design, brochures, and visual identities.", "slug": "graphic-design" },
-          { "name": "Social Media Platform Management", "desc": "Social media account management and content creation.", "slug": "social-media" },
-          { "name": "Digital Marketing", "desc": "Ad campaigns and digital marketing strategies.", "slug": "digital-marketing" },
-          { "name": "Data Entry", "desc": "Accurate and professional data entry and organization.", "slug": "data-entry" }
+          { "name": "Web Development", "desc": "Custom software development tailored to your needs — e-commerce stores, admin panels, company websites, portals, and custom systems built with modern frameworks. Fast, secure, and mobile-responsive.", "slug": "web-dev" },
+          { "name": "E-commerce Stores", "desc": "Professional online stores on Salla or Zid platforms with modern designs, seamless checkout, multiple payment gateways, shipping integration, and a full dashboard to manage orders, inventory, and customers.", "slug": "ecommerce" },
+          { "name": "Digital Menu for Restaurants & Cafes", "desc": "A professional digital menu website showcasing all your products with images, descriptions, and options (small, medium, large, extras). Features a loyalty system, a full admin dashboard for real-time updates, and a QR code customers scan to view the menu instantly on their phones.", "slug": "menu-programming" },
+          { "name": "Graphic Design", "desc": "Creative visual identity design — professional logos, brochures, business cards, social media posts, book covers, and ad designs that capture attention and strengthen your brand presence.", "slug": "graphic-design" },
+          { "name": "Social Media Platform Management", "desc": "Full management of your accounts across Facebook, Twitter, Instagram, TikTok, and LinkedIn — from content creation and scheduling to engagement, performance analytics, and regular reporting.", "slug": "social-media" },
+          { "name": "Digital Marketing", "desc": "Targeted ad campaigns on Google and social media platforms, search engine optimization (SEO), and email marketing. We plan and execute data-driven strategies to boost your sales and expand your reach.", "slug": "digital-marketing" },
+          { "name": "Data Entry", "desc": "Accurate and reliable data entry services — audio transcription, document digitization, database creation, product and invoice data entry, and Excel file organization with guaranteed quality review.", "slug": "data-entry" }
         ]
       },
       "government": {
