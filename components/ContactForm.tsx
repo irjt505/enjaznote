@@ -28,12 +28,9 @@ export default function ContactForm() {
   function validate(form: HTMLFormElement) {
     const errs: Record<string, string> = {}
     const name = (form.elements.namedItem('name') as HTMLInputElement)?.value.trim()
-    const email = (form.elements.namedItem('email') as HTMLInputElement)?.value.trim()
     const phone = (form.elements.namedItem('phone') as HTMLInputElement)?.value.trim()
     const message = (form.elements.namedItem('message') as HTMLInputElement)?.value.trim()
     if (!name) errs.name = lang === 'ar' ? 'يرجى إدخال الاسم' : 'Please enter your name'
-    if (!email) errs.email = lang === 'ar' ? 'يرجى إدخال البريد الإلكتروني' : 'Please enter your email'
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errs.email = lang === 'ar' ? 'البريد الإلكتروني غير صحيح' : 'Invalid email address'
     if (!phone) errs.phone = lang === 'ar' ? 'يرجى إدخال رقم الجوال' : 'Please enter your phone number'
     else if (!/^05[0-9]{8}$/.test(phone)) errs.phone = lang === 'ar' ? 'رقم الجوال يجب أن يبدأ بـ 05 ويتكون من 10 أرقام' : 'Phone must start with 05 and be 10 digits'
     if (!message) errs.message = lang === 'ar' ? 'يرجى إدخال الرسالة' : 'Please enter your message'
@@ -49,14 +46,13 @@ export default function ContactForm() {
     if (!validate(form)) return
 
     const name = (form.elements.namedItem('name') as HTMLInputElement).value.trim()
-    const email = (form.elements.namedItem('email') as HTMLInputElement).value.trim()
     const phone = (form.elements.namedItem('phone') as HTMLInputElement).value.trim()
     const service = (form.elements.namedItem('service') as HTMLSelectElement).value
     const message = (form.elements.namedItem('message') as HTMLTextAreaElement).value.trim()
 
     const msg = lang === 'ar'
-      ? `مرحباً، طلب استفسار جديد:\n\nالاسم: ${name}\nالبريد: ${email}\nالجوال: ${phone}\nالخدمة: ${service}\nالرسالة: ${message}`
-      : `Hello, new inquiry:\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nService: ${service}\nMessage: ${message}`
+      ? `مرحباً، طلب استفسار جديد:\n\nالاسم: ${name}\nالجوال: ${phone}\nالخدمة: ${service}\nالرسالة: ${message}`
+      : `Hello, new inquiry:\n\nName: ${name}\nPhone: ${phone}\nService: ${service}\nMessage: ${message}`
 
     window.open(whatsappUrl(msg), '_blank')
     setSubmitted(true)
@@ -104,22 +100,6 @@ export default function ContactForm() {
             }`}
           />
           {errors.name && <p id="name-error" className="text-red-400 text-xs mt-1.5" role="alert">{errors.name}</p>}
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-text-light mb-1.5" htmlFor="contact-email">{dict.contact.form.email} <span className="text-red-400">*</span></label>
-          <input
-            id="contact-email"
-            name="email"
-            type="email"
-            required
-            onChange={onInputChange}
-            aria-invalid={!!errors.email}
-            aria-describedby={errors.email ? 'email-error' : undefined}
-            className={`w-full px-4 py-3 rounded-xl bg-white/5 border focus:ring-2 outline-none transition-all text-white placeholder:text-text-dim/50 ${
-              errors.email ? 'border-red-400 focus:border-red-400 focus:ring-red-400/20' : 'border-white/10 focus:border-accent focus:ring-accent/20'
-            }`}
-          />
-          {errors.email && <p id="email-error" className="text-red-400 text-xs mt-1.5" role="alert">{errors.email}</p>}
         </div>
         <div>
           <label className="block text-sm font-medium text-text-light mb-1.5" htmlFor="contact-phone">
