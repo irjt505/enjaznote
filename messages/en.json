@@ -123,10 +123,12 @@
         "desc": "Integrated digital solutions to grow your business and brand",
         "items": [
           { "name": "Graphic Design", "desc": "Logo design, brochures, and visual identities.", "slug": "graphic-design" },
-          { "name": "Web Development", "desc": "Design and development of responsive websites.", "slug": "web-dev" },
+          { "name": "Web Development", "desc": "Develop anything you need — e-commerce, digital menus, custom systems.", "slug": "web-dev" },
           { "name": "Social Media Management", "desc": "Social media account management and content creation.", "slug": "social-media" },
           { "name": "Data Entry", "desc": "Accurate and professional data entry and organization.", "slug": "data-entry" },
-          { "name": "Digital Marketing", "desc": "Ad campaigns and digital marketing strategies.", "slug": "digital-marketing" }
+          { "name": "Digital Marketing", "desc": "Ad campaigns and digital marketing strategies.", "slug": "digital-marketing" },
+          { "name": "Menu Programming", "desc": "Create digital menus for restaurants and cafes.", "slug": "menu-programming" },
+          { "name": "E-commerce Stores", "desc": "Build online stores via Salla or Zid platforms.", "slug": "ecommerce" }
         ]
       },
       "government": {
