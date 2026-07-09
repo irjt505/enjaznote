@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
+import nodemailer from 'nodemailer'
 import { isAdmin } from '@/lib/adminAuth'
-import { getResend, resendFrom } from '@/lib/resend'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-const adminEmail = process.env.ADMIN_EMAIL!
+const smtpUser = process.env.SMTP_USER!
+const smtpPass = process.env.SMTP_PASS!
+const adminEmail = process.env.ADMIN_EMAIL
 if (!adminEmail) throw new Error('ADMIN_EMAIL not set')
 
 function escapeHtml(text: string): string {
@@ -13,6 +15,15 @@ function escapeHtml(text: string): string {
 
 const rateLimit = new Map<string, number>()
 const RATE_WINDOW = 60000
+
+function createTransport() {
+  return nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    auth: { user: smtpUser, pass: smtpPass },
+  })
+}
 
 export async function POST(req: NextRequest) {
   const ip = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'unknown'
@@ -42,10 +53,12 @@ export async function POST(req: NextRequest) {
   }
   const data = await res.json()
 
+  // Send email notification to admin
   try {
     const starsStr = '⭐'.repeat(stars)
-    await getResend().emails.send({
-      from: resendFrom,
+    const transport = createTransport()
+    await transport.sendMail({
+      from: `"انجاز نوت" <${smtpUser}>`,
       to: adminEmail,
       subject: `تقييم جديد من ${name}`,
       html: `
@@ -74,7 +87,7 @@ export async function POST(req: NextRequest) {
       `,
     })
   } catch {
-    // Email notification is optional
+    // Email notification is optional, don't fail the request
   }
 
   return NextResponse.json(data[0], { status: 201 })

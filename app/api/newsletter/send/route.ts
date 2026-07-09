@@ -1,12 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server'
+import nodemailer from 'nodemailer'
 import { createHash } from 'crypto'
 import { textToHtml } from '@/lib/emailFormatter'
 import { isAdmin } from '@/lib/adminAuth'
-import { getResend, resendFrom } from '@/lib/resend'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+const smtpUser = process.env.SMTP_USER!
+const smtpPass = process.env.SMTP_PASS!
 const websiteUrl = process.env.WEBSITE_URL || 'https://www.enjaznote.com'
+
+function createTransport() {
+  return nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    auth: { user: smtpUser, pass: smtpPass },
+  })
+}
 
 function generateToken(email: string): string {
   const salt = process.env.UNSUBSCRIBE_SALT
@@ -24,6 +35,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Subject and content required' }, { status: 400 })
     }
 
+    // Fetch all subscribers with tokens
     const res = await fetch(`${supabaseUrl}/rest/v1/subscribers`, {
       headers: { apikey: supabaseKey },
     })
@@ -35,6 +47,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No subscribers' }, { status: 400 })
     }
 
+    const transport = createTransport()
+
+    // Assign unsubscribe tokens for subscribers that don't have one
     for (const sub of subscribers) {
       if (!sub.unsubscribe_token) {
         const token = generateToken(sub.email)
@@ -59,8 +74,8 @@ export async function POST(req: NextRequest) {
         const unsubscribeUrl = `${websiteUrl}/api/unsubscribe?token=${sub.unsubscribe_token}&email=${encodeURIComponent(sub.email)}`
         const personalizedHtml = htmlBody.replace(/__UNSUBSCRIBE_URL__/g, unsubscribeUrl)
 
-        await getResend().emails.send({
-          from: resendFrom,
+        const mailOptions: nodemailer.SendMailOptions = {
+          from: `"انجاز نوت" <${smtpUser}>`,
           to: sub.email,
           subject,
           html: personalizedHtml,
@@ -68,14 +83,19 @@ export async function POST(req: NextRequest) {
           headers: {
             'List-Unsubscribe': `<${unsubscribeUrl}>`,
             'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
+            'Precedence': 'bulk',
+            'X-Entity-Ref-ID': `newsletter-${Date.now()}`,
           },
-        })
+        }
+
+        await transport.sendMail(mailOptions)
         sent++
       } catch {
         failed++
       }
     }
 
+    // Save to newsletters table
     await fetch(`${supabaseUrl}/rest/v1/newsletters`, {
       method: 'POST',
       headers: {
