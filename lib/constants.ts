@@ -8,11 +8,11 @@ export const categoryIcons: Record<string, string> = {
 export const itemIcons: Record<string, string> = {
   'web-dev': 'M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z',
   ecommerce: 'M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0',
-  'menu-programming': 'M4 4h16v16H4z M8 8h8 M8 12h8 M8 16h5',
+  'menu-programming': 'M5 4h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z M7 9h10 M7 13h6 M7 17h4',
   'graphic-design': 'M17.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L17.5 3.5z M20 8l-4-4',
   'social-media': 'M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z',
-  'digital-marketing': 'M5 8h10l4-4v12l-4-4H5V8z',
-  'data-entry': 'M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2 M9 12h6M9 16h6M9 8h1',
+  'digital-marketing': 'M6 9h8v4H6V9z M14 9l4-3v10l-4-3',
+  'data-entry': 'M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2 M9 12h6M9 16h6',
 }
 
 export const validCategories = ['office', 'student', 'digital', 'government'] as const
