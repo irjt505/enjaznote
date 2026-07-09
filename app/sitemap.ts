@@ -5,7 +5,7 @@ const categories = ['office', 'student', 'digital', 'government'] as const
 const products: Record<string, string[]> = {
   office: ['printing', 'binding', 'scanning', 'supplies'],
   student: ['research', 'translation', 'thesis', 'materials'],
-  digital: ['graphic-design', 'web-dev', 'social-media', 'data-entry', 'digital-marketing'],
+  digital: ['graphic-design', 'web-dev', 'social-media', 'data-entry', 'digital-marketing', 'ecommerce', 'menu-programming'],
   government: ['absher', 'job-applications', 'admissions', 'hr', 'legalization', 'ministry', 'admin'],
 }
 
