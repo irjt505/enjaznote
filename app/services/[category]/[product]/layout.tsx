@@ -9,7 +9,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { category, product } = await params
   const cat = (ar.services.categories as Record<string, { title: string; desc: string; items: { name: string; desc: string; slug: string }[] }>)[category]
-  const item = cat?.items.find((i) => i.slug === product)
+  const item = cat?.items?.find((i) => i.slug === product)
   const title = item?.name || product
   const desc = item?.desc || `${title} في انجاز نوت`
   const catTitle = cat?.title || category

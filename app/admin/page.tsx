@@ -5,7 +5,6 @@ import { supabase } from '@/lib/supabase'
 import { useRouter } from 'next/navigation'
 import type { User } from '@supabase/supabase-js'
 import { textToHtml } from '@/lib/emailFormatter'
-import SeoRow from '@/components/SeoRow'
 import { d } from './dict'
 
 interface Review {
@@ -41,15 +40,7 @@ interface Newsletter {
   created_at: string
 }
 
-interface SeoEntry {
-  id: number
-  page_path: string
-  title: string | null
-  description: string | null
-  keywords: string | null
-}
-
-type Tab = 'stats' | 'reviews' | 'orders' | 'newsletter' | 'seo'
+type Tab = 'stats' | 'reviews' | 'orders' | 'newsletter'
 
 const PER_PAGE = 10
 
@@ -58,7 +49,6 @@ const sidebarItems: { key: Tab; label: string; icon: string }[] = [
   { key: 'reviews', label: d.sidebar.reviews, icon: 'M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z' },
   { key: 'orders', label: d.sidebar.orders, icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2' },
   { key: 'newsletter', label: d.sidebar.newsletter, icon: 'M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z' },
-  { key: 'seo', label: d.seo.heading, icon: 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z' },
 ]
 
 const quickActions = [
@@ -217,97 +207,17 @@ export default function AdminDashboard() {
   const [composeContent, setComposeContent] = useState('')
   const [sendingNewsletter, setSendingNewsletter] = useState(false)
   const [showPreview, setShowPreview] = useState(false)
-  const [seoEntries, setSeoEntries] = useState<SeoEntry[]>([])
-  const [seoLoading, setSeoLoading] = useState(false)
-  const [seoSearch, setSeoSearch] = useState('')
-  const [creatingSeo, setCreatingSeo] = useState(false)
-  const [newSeoPath, setNewSeoPath] = useState('')
   const router = useRouter()
 
   const handleTabChange = useCallback((newTab: Tab) => {
     setTab(newTab)
-    if (newTab === 'seo') setSearch('')
-    else setSeoSearch('')
+    setSearch('')
   }, [])
   const [reviewPage, setReviewPage] = useState(1)
   const [orderPage, setOrderPage] = useState(1)
   const [subscriberPage, setSubscriberPage] = useState(1)
 
   const showToast = useCallback((message: string, type: 'success' | 'error') => setToast({ message, type }), [])
-
-  const fetchSeo = useCallback(async () => {
-    setSeoLoading(true)
-    try {
-      const res = await fetch('/api/seo')
-      if (res.ok) { const d = await res.json(); setSeoEntries(d) }
-    } catch { /* ignore */ }
-    setSeoLoading(false)
-  }, [])
-
-  const updateSeo = useCallback(async (id: number, updates: Partial<SeoEntry>): Promise<boolean> => {
-    try {
-      const res = await fetch('/api/seo', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, ...updates }),
-      })
-      if (res.ok) {
-        setSeoEntries((prev) => prev.map((e) => (e.id === id ? { ...e, ...updates } : e)))
-        showToast(d.seo.saveSuccess, 'success')
-        return true
-      }
-      showToast(d.seo.saveError, 'error')
-      return false
-    } catch {
-      showToast(d.seo.saveError, 'error')
-      return false
-    }
-  }, [showToast])
-
-  const addSeoPage = useCallback(async () => {
-    const path = newSeoPath.trim()
-    if (!path) return
-    setCreatingSeo(true)
-    try {
-      const res = await fetch('/api/seo', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ page_path: path }),
-      })
-      if (res.ok) {
-        const data = await res.json()
-        setSeoEntries((prev) => [...prev, data])
-        setNewSeoPath('')
-        showToast(d.seo.addSuccess, 'success')
-      } else {
-        const err = await res.json()
-        showToast(err.error || d.seo.addError, 'error')
-      }
-    } catch {
-      showToast(d.seo.addError, 'error')
-    }
-    setCreatingSeo(false)
-  }, [newSeoPath, showToast])
-
-  const deleteSeoPage = useCallback(async (id: number) => {
-    setConfirmModal({
-      message: d.seo.deleteConfirm,
-      onConfirm: async () => {
-        setConfirmModal(null)
-        try {
-          const res = await fetch(`/api/seo?id=${id}`, { method: 'DELETE' })
-          if (res.ok) {
-            setSeoEntries((prev) => prev.filter((e) => e.id !== id))
-            showToast(d.seo.deleteSuccess, 'success')
-          } else {
-            showToast(d.seo.deleteError, 'error')
-          }
-        } catch {
-          showToast(d.seo.deleteError, 'error')
-        }
-      },
-    })
-  }, [showToast])
 
   const fetchData = useCallback(async () => {
     try {
@@ -321,13 +231,12 @@ export default function AdminDashboard() {
       if (ordersRes.data) setOrders(ordersRes.data)
       if (subsRes.ok) { const d = await subsRes.json(); setSubscribers(d); setSubscriberPage(1) }
       if (newsRes.ok) { const d = await newsRes.json(); setNewsletters(d) }
-      await fetchSeo()
       setFetchError(false)
     } catch {
       setFetchError(true)
     }
     setLoading(false)
-  }, [fetchSeo])
+  }, [])
 
   useEffect(() => {
     supabase.auth.getUser()
@@ -959,79 +868,6 @@ export default function AdminDashboard() {
           </div>
         )
 
-      case 'seo':
-        const noTitle = seoEntries.filter((e) => !e.title).length
-        const noDesc = seoEntries.filter((e) => !e.description).length
-        const noKeywords = seoEntries.filter((e) => !e.keywords).length
-        const filteredSeo = seoSearch
-          ? seoEntries.filter((e) =>
-              e.page_path.toLowerCase().includes(seoSearch.toLowerCase()) ||
-              (e.title || '').toLowerCase().includes(seoSearch.toLowerCase())
-            )
-          : seoEntries
-        return (
-          <div className="animate-fade-in space-y-3">
-            <div className="grid grid-cols-4 gap-1 mb-2">
-              <StatCard label={d.seo.totalPages} value={seoEntries.length} icon="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
-              <StatCard label={d.seo.withTitle} value={seoEntries.length - noTitle} icon="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-              <StatCard label={d.seo.withoutDescription} value={noDesc} icon="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              <StatCard label={d.seo.withoutKeywords} value={noKeywords} icon="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-            </div>
-
-            {/* Search + Add */}
-            <div className="flex items-center gap-2">
-              <div className="relative flex-1">
-                <svg className="absolute right-2.5 top-1/2 -translate-y-1/2 size-3 text-gray-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" />
-                </svg>
-                <input
-                  value={seoSearch}
-                  onChange={(e) => setSeoSearch(e.target.value)}
-                  className="w-full pr-7 pl-2.5 py-1.5 text-[11px] rounded-lg bg-white/[0.04] border border-white/[0.06] text-white placeholder-gray-500 focus:outline-none focus:border-[#c49027]/30 transition-all"
-                  placeholder={d.seo.searchPlaceholder}
-                />
-              </div>
-              <input
-                value={newSeoPath}
-                onChange={(e) => setNewSeoPath(e.target.value)}
-                onKeyDown={(e) => { if (e.key === 'Enter') addSeoPage() }}
-                className="flex-1 px-2 py-1.5 text-[11px] rounded-lg bg-white/[0.04] border border-white/[0.06] text-white placeholder-gray-500 focus:outline-none focus:border-[#c49027]/30 transition-all"
-                placeholder={d.seo.pagePathPlaceholder}
-              />
-              <button
-                onClick={addSeoPage}
-                disabled={creatingSeo || !newSeoPath.trim()}
-                className="px-3 py-1.5 text-[10px] rounded-lg bg-[#c49027]/15 text-[#c49027] border border-[#c49027]/20 hover:bg-[#c49027]/25 transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed shrink-0"
-              >
-                {creatingSeo ? d.seo.adding : d.seo.addPage}
-              </button>
-            </div>
-
-            {seoLoading ? (
-              <div className="flex items-center justify-center py-10">
-                <svg className="animate-spin size-6 text-[#c49027]" viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" className="opacity-25" />
-                  <path d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" className="opacity-75" fill="currentColor" />
-                </svg>
-              </div>
-            ) : (
-              <div className="space-y-2">
-                {filteredSeo.length === 0 ? (
-                  <div className="text-center py-8">
-                    <svg className="size-8 mx-auto text-gray-300 mb-1.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-                      <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" />
-                    </svg>
-                    <p className="text-gray-300 text-xs">{d.seo.noResults}</p>
-                  </div>
-                ) : (
-                  filteredSeo.map((entry) => (
-                    <SeoRow key={entry.id} entry={entry} onSave={updateSeo} onDeleteRequest={deleteSeoPage} />
-                  ))
-                )}
-              </div>
-            )}
-          </div>
-        )
     }
   }
 
@@ -1129,7 +965,7 @@ export default function AdminDashboard() {
                   <p className="text-gray-300 text-[11px] truncate">{greeting}، {user.email?.split('@')[0] || d.shared.userLabel}</p>
                 </div>
                 <h1 className="text-white font-bold text-sm mt-0.5">
-                  {tab === 'stats' ? d.tabs.overview : tab === 'reviews' ? d.tabs.manageReviews : tab === 'orders' ? d.tabs.manageOrders : tab === 'newsletter' ? d.tabs.manageNewsletter : d.seo.heading}
+                  {tab === 'stats' ? d.tabs.overview : tab === 'reviews' ? d.tabs.manageReviews : tab === 'orders' ? d.tabs.manageOrders : d.tabs.manageNewsletter}
                 </h1>
               </div>
               <div className="flex items-center gap-2 shrink-0">
