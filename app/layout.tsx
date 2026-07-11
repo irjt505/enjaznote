@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Tajawal } from 'next/font/google'
 import '@/app/globals.css'
 import { LanguageProvider } from '@/lib/LanguageContext'
 import { getServerLanguage } from '@/lib/serverLanguage'
+import { getSeoByPath } from '@/lib/seo'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import WhatsAppButton from '@/components/WhatsAppButton'
@@ -31,41 +32,50 @@ const siteKeywords = [
   'السعودية', 'المملكة العربية السعودية',
 ].join(', ')
 
-export const metadata: Metadata = {
-  title: {
-    default: 'انجاز نوت | مكتبة ومركز خدمات عامة',
-    template: '%s | انجاز نوت',
-  },
-  description: 'انجاز نوت — وجهتك المتكاملة للخدمات المكتبية والطلابية والحكومية والرقمية. طباعة، تصوير، أبشر، تجليد، مسح ضوئي، ترجمة، بحث علمي، تصميم جرافيك، تسويق رقمي، برمجة مواقع، إنشاء متاجر إلكترونية، إدارة حسابات، إدخال بيانات، تقديم وظائف، القبول الجامعي، وتصديق المستندات.',
-  keywords: siteKeywords,
-  metadataBase: new URL('https://enjaznote.com'),
-  openGraph: {
-    title: 'انجاز نوت | مكتبة ومركز خدمات عامة',
-    description: 'انجاز نوت — وجهتك المتكاملة للخدمات المكتبية والطلابية والحكومية والرقمية. طباعة، تصوير، أبشر، ترجمة، تصميم، برمجة، تسويق، وكل ما تحتاجه في مكان واحد.',
-    url: 'https://enjaznote.com',
-    siteName: 'انجاز نوت',
-    locale: 'ar_SA',
-    type: 'website',
-    images: [{ url: '/og-image.png', width: 1200, height: 630 }],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'انجاز نوت | مكتبة ومركز خدمات عامة',
-    description: 'انجاز نوت — وجهتك المتكاملة للخدمات المكتبية والطلابية والحكومية والرقمية.',
-    images: ['/og-image.png'],
-  },
-  robots: { index: true, follow: true },
-  icons: {
-    icon: { url: '/pp.png', type: 'image/png', sizes: '88x88' },
-    apple: '/pp.png',
-  },
-  alternates: {
-    canonical: 'https://enjaznote.com',
-    languages: {
-      'x-default': 'https://enjaznote.com',
-      ar: 'https://enjaznote.com',
+const defaultTitle = 'انجاز نوت | مكتبة ومركز خدمات عامة'
+const defaultDesc = 'انجاز نوت — وجهتك المتكاملة للخدمات المكتبية والطلابية والحكومية والرقمية. طباعة، تصوير، أبشر، تجليد، مسح ضوئي، ترجمة، بحث علمي، تصميم جرافيك، تسويق رقمي، برمجة مواقع، إنشاء متاجر إلكترونية، إدارة حسابات، إدخال بيانات، تقديم وظائف، القبول الجامعي، وتصديق المستندات.'
+const defaultOgDesc = 'انجاز نوت — وجهتك المتكاملة للخدمات المكتبية والطلابية والحكومية والرقمية. طباعة، تصوير، أبشر، ترجمة، تصميم، برمجة، تسويق، وكل ما تحتاجه في مكان واحد.'
+const defaultTwDesc = 'انجاز نوت — وجهتك المتكاملة للخدمات المكتبية والطلابية والحكومية والرقمية.'
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getSeoByPath('/')
+  const title = seo?.title || defaultTitle
+  const description = seo?.description || defaultDesc
+  const keywords = seo?.keywords || siteKeywords
+
+  return {
+    title: { default: title, template: '%s | انجاز نوت' },
+    description,
+    keywords,
+    metadataBase: new URL('https://enjaznote.com'),
+    openGraph: {
+      title,
+      description: seo?.description || defaultOgDesc,
+      url: 'https://enjaznote.com',
+      siteName: 'انجاز نوت',
+      locale: 'ar_SA',
+      type: 'website',
+      images: [{ url: '/og-image.png', width: 1200, height: 630 }],
     },
-  },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description: seo?.description || defaultTwDesc,
+      images: ['/og-image.png'],
+    },
+    robots: { index: true, follow: true },
+    icons: {
+      icon: { url: '/pp.png', type: 'image/png', sizes: '88x88' },
+      apple: '/pp.png',
+    },
+    alternates: {
+      canonical: 'https://enjaznote.com',
+      languages: {
+        'x-default': 'https://enjaznote.com',
+        ar: 'https://enjaznote.com',
+      },
+    },
+  }
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
