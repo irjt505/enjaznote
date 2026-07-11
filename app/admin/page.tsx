@@ -233,6 +233,8 @@ export default function AdminDashboard() {
   const [orderPage, setOrderPage] = useState(1)
   const [subscriberPage, setSubscriberPage] = useState(1)
 
+  const showToast = useCallback((message: string, type: 'success' | 'error') => setToast({ message, type }), [])
+
   const fetchSeo = useCallback(async () => {
     setSeoLoading(true)
     try {
@@ -242,7 +244,7 @@ export default function AdminDashboard() {
     setSeoLoading(false)
   }, [])
 
-  const updateSeo = async (id: number, updates: Partial<SeoEntry>): Promise<boolean> => {
+  const updateSeo = useCallback(async (id: number, updates: Partial<SeoEntry>): Promise<boolean> => {
     try {
       const res = await fetch('/api/seo', {
         method: 'PUT',
@@ -260,9 +262,9 @@ export default function AdminDashboard() {
       showToast(d.seo.saveError, 'error')
       return false
     }
-  }
+  }, [showToast])
 
-  const addSeoPage = async () => {
+  const addSeoPage = useCallback(async () => {
     const path = newSeoPath.trim()
     if (!path) return
     setCreatingSeo(true)
@@ -285,9 +287,9 @@ export default function AdminDashboard() {
       showToast(d.seo.addError, 'error')
     }
     setCreatingSeo(false)
-  }
+  }, [newSeoPath, showToast])
 
-  const deleteSeoPage = async (id: number) => {
+  const deleteSeoPage = useCallback(async (id: number) => {
     setConfirmModal({
       message: d.seo.deleteConfirm,
       onConfirm: async () => {
@@ -305,9 +307,7 @@ export default function AdminDashboard() {
         }
       },
     })
-  }
-
-  const showToast = useCallback((message: string, type: 'success' | 'error') => setToast({ message, type }), [])
+  }, [showToast])
 
   const fetchData = useCallback(async () => {
     try {

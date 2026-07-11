@@ -176,5 +176,10 @@ export const d = {
     descTooLong: 'أفضل: 150-160 محرف',
     noResults: 'لا توجد نتائج',
     previewTitle: 'معاينة في البحث',
+    deleteTooltip: 'حذف',
+    saveBtn: 'حفظ',
+    savingBtn: 'جارٍ الحفظ...',
+    keywordsAddPlaceholder: 'اكتب كلمة مفتاحية واضغط Enter',
+    keywordsCount: (n: number) => `${n} كلمة مفتاحية`,
   },
 }

@@ -32,11 +32,14 @@ export async function getAllSeo(): Promise<SeoEntry[]> {
   return res.json()
 }
 
+const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
+
 export async function updateSeo(id: number, data: Partial<SeoEntry>) {
   const res = await fetch(`${supabaseUrl}/rest/v1/seo?id=eq.${id}`, {
     method: 'PATCH',
     headers: {
-      apikey: supabaseKey,
+      apikey: serviceKey,
+      Authorization: `Bearer ${serviceKey}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ ...data, updated_at: new Date().toISOString() }),

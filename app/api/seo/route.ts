@@ -2,11 +2,12 @@ import { NextRequest, NextResponse } from 'next/server'
 import { isAdmin } from '@/lib/adminAuth'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
 
 export async function GET() {
   const res = await fetch(`${supabaseUrl}/rest/v1/seo?order=page_path.asc`, {
-    headers: { apikey: supabaseKey },
+    headers: { apikey: anonKey },
   })
   if (!res.ok) return NextResponse.json({ error: 'Failed' }, { status: 500 })
   const data = await res.json()
@@ -31,7 +32,8 @@ export async function POST(req: NextRequest) {
     const res = await fetch(`${supabaseUrl}/rest/v1/seo`, {
       method: 'POST',
       headers: {
-        apikey: supabaseKey,
+        apikey: serviceKey,
+        Authorization: `Bearer ${serviceKey}`,
         'Content-Type': 'application/json',
         Prefer: 'return=representation',
       },
@@ -59,7 +61,8 @@ export async function PUT(req: NextRequest) {
     const res = await fetch(`${supabaseUrl}/rest/v1/seo?id=eq.${id}`, {
       method: 'PATCH',
       headers: {
-        apikey: supabaseKey,
+        apikey: serviceKey,
+        Authorization: `Bearer ${serviceKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -87,7 +90,10 @@ export async function DELETE(req: NextRequest) {
 
     const res = await fetch(`${supabaseUrl}/rest/v1/seo?id=eq.${id}`, {
       method: 'DELETE',
-      headers: { apikey: supabaseKey },
+      headers: {
+        apikey: serviceKey,
+        Authorization: `Bearer ${serviceKey}`,
+      },
     })
     if (!res.ok) return NextResponse.json({ error: 'Delete failed' }, { status: 500 })
     return NextResponse.json({ success: true })
